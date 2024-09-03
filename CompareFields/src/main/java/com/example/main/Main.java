@@ -33,12 +33,12 @@ public class Main {
 
         long startTime = System.nanoTime();
 
-        Set<Transaction> transactions = icores.stream()
+        Set<Transaction> transactions = icores.parallelStream()
                 .map(p -> new Transaction(p.getTranId(), p.getTranDate()))
                 .collect(Collectors.toSet());
 
         // Find common fields in employeeList
-        List<Npci> commonRecords = npci.stream()
+        List<Npci> commonRecords = npci.parallelStream()
                 .filter(e -> transactions.contains(new Transaction(e.getTxId(), e.getTranDate())))
                 .toList();
                 //.collect(Collectors.toList());

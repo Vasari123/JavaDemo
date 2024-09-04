@@ -27,7 +27,7 @@ public class Main implements CommandLineRunner {
     public void run(String... args) throws Exception {
         List<Icore> icores = new ArrayList<>();
 
-        icores = IntStream.rangeClosed(0, 8000000)
+        icores = IntStream.rangeClosed(0, 1000)
                 .parallel()
                 .mapToObj(i -> new Icore("adasd", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "adasd", "sdsd"))
                 .collect(Collectors.toList());
@@ -37,7 +37,7 @@ public class Main implements CommandLineRunner {
         List<Npci> npci = new ArrayList<>();
 
         Random r = new Random();
-        npci = IntStream.rangeClosed(1, 8000000)
+        npci = IntStream.rangeClosed(1, 1000)
                 .parallel()
                 .mapToObj(i -> new Npci("sdas" + r.nextInt(), "sdsd", "gtrtgrt", "adasd", "sdsd", "dsfsdfsdf" + r.nextInt(), "200000", "sdsd", "adasd", "sdsd", "25-12-1986", "adasd", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "200000", "sdsd", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "200000", "sdsd", "sdasd", "dscsdsa", "sdasd", "dscsdsa"))
                 .collect(Collectors.toList());

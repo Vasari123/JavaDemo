@@ -20,7 +20,6 @@ public class KafkaService {
     public void sendIcoreMessage(String topic, Icore icore) {
         try {
             String message = objectMapper.writeValueAsString(icore);
-            System.out.println("Data is sending to ICore topic");
             kafkaTemplate.send(topic, message);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -30,7 +29,6 @@ public class KafkaService {
     public void sendNpciMessage(String topic, Npci npci) {
         try {
             String message = objectMapper.writeValueAsString(npci);
-            System.out.println("Data is sending to Npci topic");
             kafkaTemplate.send(topic, message);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

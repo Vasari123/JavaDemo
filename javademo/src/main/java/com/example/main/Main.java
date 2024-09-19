@@ -1,9 +1,6 @@
 package com.example.main;
 
 import com.example.kafkaservice.KafkaService;
-import com.example.model.Icore;
-import com.example.model.Npci;
-import com.example.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,29 +23,29 @@ public class Main implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<Icore> icores = new ArrayList<>();
-
-        icores = IntStream.rangeClosed(0, 1000)
+        Random r = new Random();
+        icores = IntStream.rangeClosed(0, 10)
                 .parallel()
-                .mapToObj(i -> new Icore("adasd", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "adasd", "sdsd"))
+                .mapToObj(i -> new Icore("POOL1234567890", "2024-09-10", "2024-09-10", "TRN1234567890"+r.nextInt(), "Payment for services", "Invoice #98765", "DummyValue1", "DummyValue2", "0987654321", "1000.00", "DR"))
                 .collect(Collectors.toList());
 
-        icores.add(new Icore("adasd", "sdsd", "25-12-1986", "123", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "200000", "sdsd"));
+        icores.add(new Icore("POOL1234567890", "2024-09-10", "2024-09-10", "TRN1234567890", "Payment for services", "Invoice #98765", "DummyValue1", "DummyValue2", "0987654321", "1000.00", "DR"));
 
         List<Npci> npci = new ArrayList<>();
 
-        Random r = new Random();
-        npci = IntStream.rangeClosed(1, 1000)
+
+        npci = IntStream.rangeClosed(1, 10)
                 .parallel()
-                .mapToObj(i -> new Npci("sdas" + r.nextInt(), "sdsd", "gtrtgrt", "adasd", "sdsd", "dsfsdfsdf" + r.nextInt(), "200000", "sdsd", "adasd", "sdsd", "25-12-1986", "adasd", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "200000", "sdsd", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "200000", "sdsd", "sdasd", "dscsdsa", "sdasd", "dscsdsa"))
+                .mapToObj(i -> new Npci("TX1234567890", "Credit", "Column2Value", "0001", "00", "2024-09-10", "12:30:45", "1000.00", "Column3Value", "Column4Value", "INV123", "Column7Value", "Column8Value", "payer@bank", "Column9Value", "Column10Value", "payee@bank", "PART12345", "IFSC0001234", "Column11Value", "1234567890", "Column12Value", "Column13Value", "Column14Value", "Column15Value", "INST001", "IN", "INR", "1500.00", "0.00","TRN1234567890"+r.nextInt()))
                 .collect(Collectors.toList());
 
-        npci.add(new Npci("123", "sdsd", "gtrtgrt", "adasd", "sdsd", "25-12-1986", "200000", "sdsd", "adasd", "sdsd", "25-12-1986", "adasd", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "200000", "sdsd", "sdsd", "gtrtgrt", "adasd", "sdsd", "gtrtgrt", "200000", "sdsd", "sdasd", "dscsdsa", "sdasd", "dscsdsa"));
+        npci.add(new Npci("TX1234567890", "Credit", "Column2Value", "0001", "00", "2024-09-10", "12:30:45", "1000.00", "Column3Value", "Column4Value", "INV123", "Column7Value", "Column8Value", "payer@bank", "Column9Value", "Column10Value", "payee@bank", "PART12345", "IFSC0001234", "Column11Value", "1234567890", "Column12Value", "Column13Value", "Column14Value", "Column15Value", "INST001", "IN", "INR", "1500.00", "0.00","TRN1234567890"));
 
         long startTime = System.nanoTime();
 
         // Sending data to Kafka topics
-        icores.forEach(icore -> kafkaService.sendIcoreMessage("icore-topic", icore));
-        npci.forEach(npciRecord -> kafkaService.sendNpciMessage("npci-topic", npciRecord));
+        icores.forEach(icore -> kafkaService.sendIcoreMessage("icore-topic", icore.getTranId(),icore));
+        npci.forEach(npciRecord -> kafkaService.sendNpciMessage("npci-topic",npciRecord.getTranId(), npciRecord));
 
         long endTime = System.nanoTime();
 

@@ -1,6 +1,4 @@
-package com.example.model;
-
-import java.util.Objects;
+package com.example.main;
 
 public class Npci {
     private String txId;
@@ -33,9 +31,11 @@ public class Npci {
     private String currencyCode;
     private String tranAmtIntCur;
     private String markupRebate;
+    private String tranId;
     public Npci() {
     }
-    public Npci(String txId, String transactionType, String col2Filler, String tranSrlNo, String responseCode, String tranDate, String tranTime, String tranAmount, String col3Filler, String col4Filler, String purposeCode, String col7Filler, String col8Filler, String payerVpa, String col9Filler, String col10Filler, String payeeVpa, String participantId, String remIfscCode, String col11Filler, String remAccountNo, String col12Filler, String col13Filler, String col14Filler, String col15Filler, String institutionCode, String countryCode, String currencyCode, String tranAmtIntCur, String markupRebate) {
+
+    public Npci(String txId, String transactionType, String col2Filler, String tranSrlNo, String responseCode, String tranDate, String tranTime, String tranAmount, String col3Filler, String col4Filler, String purposeCode, String col7Filler, String col8Filler, String payerVpa, String col9Filler, String col10Filler, String payeeVpa, String participantId, String remIfscCode, String col11Filler, String remAccountNo, String col12Filler, String col13Filler, String col14Filler, String col15Filler, String institutionCode, String countryCode, String currencyCode, String tranAmtIntCur, String markupRebate, String tranId) {
         this.txId = txId;
         this.transactionType = transactionType;
         this.col2Filler = col2Filler;
@@ -66,17 +66,7 @@ public class Npci {
         this.currencyCode = currencyCode;
         this.tranAmtIntCur = tranAmtIntCur;
         this.markupRebate = markupRebate;
-    }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Npci npci = (Npci) o;
-        return Objects.equals(getTxId(), npci.getTxId()) && Objects.equals(getTranDate(), npci.getTranDate());
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(getTxId(), getTranDate());
+        this.tranId = tranId;
     }
 
     public String getTxId() {
@@ -319,6 +309,14 @@ public class Npci {
         this.markupRebate = markupRebate;
     }
 
+    public String getTranId() {
+        return tranId;
+    }
+
+    public void setTranId(String tranId) {
+        this.tranId = tranId;
+    }
+
     @Override
     public String toString() {
         return "Npci{" +
@@ -352,6 +350,7 @@ public class Npci {
                 ", currencyCode='" + currencyCode + '\'' +
                 ", tranAmtIntCur='" + tranAmtIntCur + '\'' +
                 ", markupRebate='" + markupRebate + '\'' +
+                ", tranId='" + tranId + '\'' +
                 '}';
     }
 }
